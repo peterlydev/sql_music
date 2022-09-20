@@ -1,0 +1,25 @@
+services:
+  api:
+    container_name: music_test_api
+    environment: 
+      - PGUSER=peterlydev
+      - PGHOST=db
+      - PGPASSWORD=password
+      - PGDATABASE=music_test
+      - PGPORT=5432
+      - NODE_ENV=test
+    depends_on:
+      - db
+    tty: true
+  db:
+    container_name: music_test_db
+    volumes:
+      - "test_db:/var/lib/postgresql/data"
+    environment: 
+      - POSTGRES_DB=music_test
+      - POSTGRES_PASSWORD=password
+volumes:
+  test_db:
+networks: 
+  default:
+    name: music_test
